@@ -16,6 +16,7 @@ class SimpleTasks(TaskSet):
         # Test the medium route
         self.client.get("/medium")
 
+class HeavyTasks(TaskSet):
     @task(4)
     def heavy(self):
         # Test the heavy route
@@ -30,3 +31,10 @@ class SimpleTasks(TaskSet):
 class SimpleUser(HttpUser):
     tasks = [SimpleTasks]
     wait_time = between(1, 5)  # Simulate a wait time between requests
+    weight = 2
+
+class HeavyUser(HttpUser):
+    tasks = [HeavyTasks]
+    wait_time = between(3, 6)  # Simulate a wait time between requests
+    weight = 98
+
